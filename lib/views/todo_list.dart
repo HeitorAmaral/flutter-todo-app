@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/components/todo_tile.dart';
-import 'package:flutter_crud/data/dummy_todos.dart';
-import 'package:flutter_crud/models/todo.dart';
 import 'package:flutter_crud/provider/todos.dart';
+import 'package:flutter_crud/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 
 class TodoList extends StatelessWidget {
@@ -16,7 +15,11 @@ class TodoList extends StatelessWidget {
           centerTitle: true,
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.add), color: Colors.white, onPressed: () {})
+                icon: Icon(Icons.add),
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRoutes.TODO_FORM);
+                })
           ],
         ),
         body: ListView.builder(

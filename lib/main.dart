@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/provider/todos.dart';
+import 'package:flutter_crud/routes/app_routes.dart';
+import 'package:flutter_crud/views/todo_form.dart';
 import 'package:flutter_crud/views/todo_list.dart';
 import 'package:provider/provider.dart';
 
@@ -17,12 +19,16 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home: TodoList()),
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        routes: {
+          AppRoutes.HOME: (_) => TodoList(),
+          AppRoutes.TODO_FORM: (_) => TodoForm()
+        },
+      ),
     );
   }
 }
