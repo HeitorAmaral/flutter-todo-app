@@ -32,7 +32,8 @@ class _TodoFormState extends State<TodoForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Formulário de Todos"),
+        title: Text("Formulário de Tarefa"),
+        centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),

@@ -42,8 +42,9 @@ class TodoTile extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (ctx) => AlertDialog(
-                    title: Text('Excluir Todo'),
-                    content: Text('Tem certeza?'),
+                    title: Text('Excluir Tarefa'),
+                    content: Text(
+                        'Tem certeza que deseja excluir permanentemente a tarefa?'),
                     actions: <Widget>[
                       FlatButton(
                         child: Text('Não'),

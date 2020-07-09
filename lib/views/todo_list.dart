@@ -11,7 +11,7 @@ class TodoList extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista de Todos'),
+        title: Text('Lista de Tarefas'),
         centerTitle: true,
         actions: <Widget>[
           IconButton(

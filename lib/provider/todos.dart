@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -7,13 +8,36 @@ import 'package:http/http.dart' as http;
 
 class Todos with ChangeNotifier {
   static const _baseUrl = 'https://fir-todo-ba8db.firebaseio.com';
-  final Map<String, Todo> _items = {...DUMMY_TODOS};
+  final Map<String, Todo> _items = {};
+
+  Future<void> get byFirebase async {
+    final response = await http.get(
+      "$_baseUrl/todos.json",
+    );
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+
+    extractedData.forEach(
+      (todoId, todoData) {
+        _items.putIfAbsent(
+          todoId,
+          () => Todo(
+            id: todoId,
+            description: todoData['description'],
+            iconUrl: todoData['iconUrl'],
+          ),
+        );
+      },
+    );
+    notifyListeners();
+  }
 
   List<Todo> get all {
-    return [..._items.values];
+    byFirebase;
+    return _items.values;
   }
 
   int get count {
+    byFirebase;
     return _items.length;
   }
 
