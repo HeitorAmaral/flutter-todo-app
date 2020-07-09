@@ -1,10 +1,12 @@
-import 'dart:math';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/data/dummy_todos.dart';
 import 'package:flutter_crud/models/todo.dart';
+import 'package:http/http.dart' as http;
 
 class Todos with ChangeNotifier {
+  static const _baseUrl = 'https://fir-todo-ba8db.firebaseio.com';
   final Map<String, Todo> _items = {...DUMMY_TODOS};
 
   List<Todo> get all {
@@ -19,7 +21,7 @@ class Todos with ChangeNotifier {
     return _items.values.elementAt(i);
   }
 
-  void put(Todo todo) {
+  Future<void> put(Todo todo) async {
     if (todo == null) {
       return;
     }
@@ -27,6 +29,15 @@ class Todos with ChangeNotifier {
     if (todo.id != null &&
         todo.id.trim().isNotEmpty &&
         _items.containsKey(todo.id)) {
+      await http.patch(
+        "$_baseUrl/todos/${todo.id}.json",
+        body: json.encode(
+          {
+            'description': todo.description,
+            'iconUrl': todo.iconUrl,
+          },
+        ),
+      );
       _items.update(
         todo.id,
         (_) => Todo(
@@ -36,7 +47,18 @@ class Todos with ChangeNotifier {
         ),
       );
     } else {
-      final id = Random().nextDouble().toString();
+      final response = await http.post(
+        "$_baseUrl/todos.json",
+        body: json.encode(
+          {
+            'description': todo.description,
+            'iconUrl': todo.iconUrl,
+          },
+        ),
+      );
+
+      final id = json.decode(response.body)['name'];
+
       _items.putIfAbsent(
         id,
         () => Todo(
@@ -49,8 +71,12 @@ class Todos with ChangeNotifier {
     notifyListeners();
   }
 
-  void remove(Todo todo) {
+  Future<void> remove(Todo todo) async {
     if (todo != null && todo.id != null) {
+      await http.delete(
+        "$_baseUrl/todos/${todo.id}.json",
+      );
+
       _items.remove(todo.id);
       notifyListeners();
     }

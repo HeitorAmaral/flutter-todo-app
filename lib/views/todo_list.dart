@@ -10,21 +10,25 @@ class TodoList extends StatelessWidget {
     final Todos todos = Provider.of(context);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Lista de Todos'),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.add),
-                color: Colors.white,
-                onPressed: () {
-                  Navigator.of(context).pushNamed(AppRoutes.TODO_FORM);
-                })
-          ],
+      appBar: AppBar(
+        title: Text('Lista de Todos'),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.of(context).pushNamed(AppRoutes.TODO_FORM);
+            },
+          )
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: todos.count,
+        itemBuilder: (ctx, i) => TodoTile(
+          todos.byIndex(i),
         ),
-        body: ListView.builder(
-          itemCount: todos.count,
-          itemBuilder: (ctx, i) => TodoTile(todos.byIndex(i)),
-        ));
+      ),
+    );
   }
 }
