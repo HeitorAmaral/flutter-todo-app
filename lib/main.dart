@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/provider/todos.dart';
 import 'package:flutter_crud/routes/app_routes.dart';
+import 'package:flutter_crud/views/login_page.dart';
 import 'package:flutter_crud/views/todo_form.dart';
 import 'package:flutter_crud/views/todo_list.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,9 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routes: {
-          AppRoutes.HOME: (_) => TodoList(),
+          AppRoutes.HOME: (_) => LoginPage(),
+          //provisório
+          AppRoutes.LOGIN_PAGE: (_) => TodoList(),
           AppRoutes.TODO_FORM: (_) => TodoForm()
         },
       ),
