@@ -6,9 +6,7 @@ import 'package:flutter_crud/views/todo_form.dart';
 import 'package:flutter_crud/views/todo_list.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -27,7 +25,6 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           AppRoutes.HOME: (_) => LoginPage(),
-          //provisório
           AppRoutes.LOGIN_PAGE: (_) => TodoList(),
           AppRoutes.TODO_FORM: (_) => TodoForm()
         },

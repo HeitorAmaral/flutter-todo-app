@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_crud/routes/app_routes.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
     if (form.validate()) {
       form.save();
       print('Form is valid. Email: $_email Password: $_password');
+      Navigator.of(context).pushNamed(AppRoutes.LOGIN_PAGE);
     } else {
       print('Form is invalid');
     }
@@ -35,13 +37,21 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               new TextFormField(
-                decoration: new InputDecoration(labelText: 'E-mail'),
+                keyboardType: TextInputType.emailAddress,
+                autocorrect: false,
+                decoration: new InputDecoration(
+                  labelText: 'E-mail',
+                  hintText: 'Insira o seu e-mail...',
+                ),
                 validator: (value) =>
                     value.isEmpty ? 'O e-mail deve ser preenchido!' : null,
                 onSaved: (value) => _email = value,
               ),
               new TextFormField(
-                decoration: new InputDecoration(labelText: 'Senha'),
+                decoration: new InputDecoration(
+                  labelText: 'Senha',
+                  hintText: 'Insira a sua senha...',
+                ),
                 validator: (value) =>
                     value.isEmpty ? 'A senha deve ser preenchida!' : null,
                 onSaved: (value) => _password = value,
@@ -54,7 +64,15 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 20.0,
                   ),
                 ),
-                onPressed: validateAndSave,
+                onPressed: () {
+                  final form = formKey.currentState;
+                  if (form.validate()) {
+                    form.save();
+                    Navigator.of(context).pushNamed(AppRoutes.LOGIN_PAGE);
+                  } else {
+                    print('Form is invalid');
+                  }
+                },
               )
             ],
           ),
